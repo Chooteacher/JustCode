@@ -1,7 +1,15 @@
 import React from "react";
-import "./Login.css";
+import "./Login.scss";
+// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const goToMain = () => {
+    navigate("/Main");
+  };
+
   return (
     <div className="login">
       <div className="fonts">Justgram</div>
@@ -21,8 +29,8 @@ function Login() {
           id="input-pw"
         />
       </div>
-      <button id="login" disabled>
-        로그인
+      <button id="login" onlick={goToMain}>
+        {/* <Link to="/Main">로그인</Link> */}로그인
       </button>
       <button id="password" disabled>
         비밀번호를 잊으셨나요?

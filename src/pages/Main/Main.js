@@ -1,5 +1,6 @@
 import React from "react";
-import "./Main.css";
+import "./Main.scss";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
   return (
@@ -44,7 +45,7 @@ function Main() {
           <p className="feed-time">42분 전</p>
           <div className="comment-box">
             <input type="text" placeholder="댓글 달기..." className="comment" />
-            <button type="button" onclick="" className="comment-button">
+            <button type="button" className="comment-button">
               게시
             </button>
           </div>
@@ -73,7 +74,7 @@ function Main() {
           <p className="feed-time">42분 전</p>
           <div className="comment-box">
             <input type="text" placeholder="댓글 달기..." className="comment" />
-            <button type="button" onclick="" className="comment-button">
+            <button type="button" className="comment-button">
               게시
             </button>
           </div>
@@ -102,7 +103,7 @@ function Main() {
           <p className="feed-time">42분 전</p>
           <div className="comment-box">
             <input type="text" placeholder="댓글 달기..." className="comment" />
-            <button type="button" onclick="" className="comment-button">
+            <button type="button" className="comment-button">
               게시
             </button>
           </div>
