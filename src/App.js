@@ -1,23 +1,26 @@
 import logo from "./logo.svg";
 import "./App.scss";
+import React, { useState } from "react";
 
 function App() {
+  const [name, setName] = useState("아오");
+  const [name2, setName2] = useState("오아");
+  let yourName = "바뀌냐구용";
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="name">{name}</div>
+      <div className="name2">{name2}</div>
+      <div className="yourName">{yourName}</div>
+      <button
+        onClick={() => {
+          setName("으아앙");
+          yourName = "잘되나요";
+        }}
+      >
+        {" "}
+        이름 바꾸기{" "}
+      </button>
     </div>
   );
 }

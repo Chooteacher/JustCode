@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.scss";
 // import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+// import { render } from "@testing-library/react";
 
 function Login() {
   const navigate = useNavigate();
 
-  const goToMain = () => {
-    navigate("/Main");
+  const [id, setId] = useState();
+  const [password, setPassword] = useState("");
+  const [isValid, setIsValid] = useState(false);
+
+  const handleIdInput = (e) => {
+    const idValue = e.target.value;
+    setId(idValue);
+    idValue.includes("@") && password.length >= 5
+      ? setIsValid(true)
+      : setIsValid(false);
+  };
+
+  const handlepwinput = (e) => {
+    const pwValue = e.target.value;
+    setPassword(pwValue);
+    id.includes("@") && pwValue.length >= 5
+      ? setIsValid(true)
+      : setIsValid(false);
   };
 
   return (
@@ -19,6 +36,7 @@ function Login() {
           placeholder="전화번호, 사용자 이름 또는 이메일"
           className="form-design"
           id="input-id"
+          onChange={handleIdInput}
         />
       </div>
       <div className="form">
@@ -27,9 +45,15 @@ function Login() {
           placeholder="비밀번호"
           className="form-design"
           id="input-pw"
+          onChange={handlepwinput}
         />
       </div>
-      <button id="login" onlick={goToMain}>
+      <button
+        id="login"
+        style={{
+          backgroundColor: isValid ? "rgb(11, 88, 160)" : "rgb(190, 220, 248)",
+        }}
+      >
         {/* <Link to="/Main">로그인</Link> */}로그인
       </button>
       <button id="password" disabled>
