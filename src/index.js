@@ -9,6 +9,7 @@ import Main from "./pages/Main/Main";
 import Sigup from "./pages/Signup/Signup";
 import Fee from "./pages/Main/Feed";
 import Router from "./Router";
+import Parent from "./Parent";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Router />);

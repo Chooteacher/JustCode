@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.scss";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 // import { render } from "@testing-library/react";
 
@@ -54,7 +54,9 @@ function Login() {
           backgroundColor: isValid ? "rgb(11, 88, 160)" : "rgb(190, 220, 248)",
         }}
       >
-        {/* <Link to="/Main">로그인</Link> */}로그인
+        <Link to="/Main" style={{ textDecoration: "none", color: "white" }}>
+          로그인
+        </Link>
       </button>
       <button id="password" disabled>
         비밀번호를 잊으셨나요?

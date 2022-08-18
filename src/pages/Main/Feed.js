@@ -1,8 +1,14 @@
 import React, { useState, useRef } from "react";
+import Comment from "./Comment";
+import "./Comment.scss";
+import "./Feed.scss";
+
 function Feed() {
   const [comment, setComment] = useState();
   const [id, setId] = useState(1);
   const value = useRef();
+  const [inputState, setInput] = useState("");
+
   const [commentArray, setCommentArray] = useState([
     {
       id: 0,
@@ -14,10 +20,19 @@ function Feed() {
     setId(id + 1);
     const newComment = {
       id: id,
-      content: value.current.value,
+      content: inputState,
+      createdAt: new Date().toLocaleString(),
     };
+    setInput("");
+    // value.current.value = "";
     console.log(newComment);
     setCommentArray([...commentArray, newComment]);
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === "Enter") {
+      addComment();
+    }
   };
 
   return (
@@ -43,7 +58,16 @@ function Feed() {
       </div>
       <div className="comment-list">
         {commentArray.map((comment) => {
-          return <li key={comment.id}>{comment.content}</li>;
+          return (
+            <li key={comment.id}>
+              <Comment
+                id={comment.id}
+                content={comment.content}
+                writer="익명"
+                createdAt={comment.createdAt || "2022.01.01. 오후 12:00:00"}
+              />
+            </li>
+          );
         })}
       </div>
       <p className="feed-time">42분 전</p>
@@ -53,6 +77,9 @@ function Feed() {
           placeholder="댓글 달기..."
           className="comment"
           ref={value}
+          value={inputState}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={onKeyDown}
           // onChange={(e) => {
           //   setComment(e.target.value);
           // }}
