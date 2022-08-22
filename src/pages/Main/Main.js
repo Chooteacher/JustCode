@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Main.scss";
 import Feed from "./Feed";
+import { useState } from "react";
 
 function Main() {
+  const [feeds, setFeeds] = useState([]);
+
+  useEffect(() => {
+    fetch("/data/feeds.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setFeeds(data.feeds);
+      });
+  }, []);
+
   return (
     <>
       <header>
@@ -21,7 +32,9 @@ function Main() {
         </div>
       </header>
       <main>
-        <Feed />
+        {feeds.map((feed) => {
+          return <Feed key={feed.id} feedData={feed} />;
+        })}
       </main>
     </>
   );

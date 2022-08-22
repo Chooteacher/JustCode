@@ -10,6 +10,7 @@ function Login() {
   const [id, setId] = useState();
   const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const [token, setToken] = useState("");
 
   const handleIdInput = (e) => {
     const idValue = e.target.value;
@@ -25,6 +26,25 @@ function Login() {
     id.includes("@") && pwValue.length >= 5
       ? setIsValid(true)
       : setIsValid(false);
+  };
+
+  const onLoginButtonClcik = () => {
+    const body = {
+      email: id,
+      password: password,
+    };
+    fetch("http://auth.jaejun.me:10010", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setToken(json.access_token);
+        localStorage.setItem("token", json.access_token);
+      });
   };
 
   return (
@@ -53,6 +73,7 @@ function Login() {
         style={{
           backgroundColor: isValid ? "rgb(11, 88, 160)" : "rgb(190, 220, 248)",
         }}
+        onClick={onLoginButtonClcik}
       >
         <Link to="/Main" style={{ textDecoration: "none", color: "white" }}>
           로그인

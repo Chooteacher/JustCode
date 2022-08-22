@@ -1,20 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Comment from "./Comment";
 import "./Comment.scss";
 import "./Feed.scss";
 
-function Feed() {
+function Feed({ feedData }) {
   const [comment, setComment] = useState();
   const [id, setId] = useState(1);
   const value = useRef();
   const [inputState, setInput] = useState("");
 
-  const [commentArray, setCommentArray] = useState([
-    {
-      id: 0,
-      content: "으왕아아악",
-    },
-  ]);
+  const [commentArray, setCommentArray] = useState([]);
+
+  useEffect(() => {
+    fetch("/data/comment.json")
+      .then((res) => res.json())
+      .then((data) => setCommentArray(data.comments));
+  }, []);
 
   const addComment = () => {
     setId(id + 1);
@@ -34,18 +35,17 @@ function Feed() {
       addComment();
     }
   };
-
   return (
     <div className="main-feed">
       <div className="feed-header">
-        <img src="/images/profile1.jpg" className="profile" />
+        <img src={feedData.profileImg} className="profile" />
         <span id="id">
-          <b>Choo</b>
+          <b>{feedData.username}</b>
         </span>
         <img src="/images/dots.png" className="meun-dots" />
       </div>
       <div className="feed-photo">
-        <img src="/images/cat.jpg" className="cat-photo" />
+        <img src={feedData.contentImg} className="cat-photo" />
       </div>
       <div className="menu-bar">
         <img src="/images/heart.png" className="heart bar-icon" />
@@ -54,15 +54,15 @@ function Feed() {
         <img src="/images/mark.png" className="mark-icon bar-icon" />
       </div>
       <div className="feed-content">
-        <p>야옹이 너무 귀엽죠 ㅎ</p>
+        <p> {feedData.content}</p>
       </div>
       <div className="comment-list">
         {commentArray.map((comment) => {
           return (
-            <li key={comment.id}>
+            <li key={comment.commentnum}>
               <Comment
-                id={comment.id}
-                content={comment.content}
+                commentnum={comment.commentnum}
+                content={comment.comment}
                 writer="익명"
                 createdAt={comment.createdAt || "2022.01.01. 오후 12:00:00"}
               />
